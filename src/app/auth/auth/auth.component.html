@@ -1,0 +1,57 @@
+<div class="row" style="margin: 6rem auto">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <div *ngIf="isLoading" style="text-align: center; margin: 20rem auto">
+      <app-spinner></app-spinner>
+    </div>
+    <form
+      autocomplete="off"
+      #authForm="ngForm"
+      (ngSubmit)="onSubmitForm(authForm)"
+      *ngIf="!isLoading"
+    >
+      <h1>{{ isLoginMode ? "Login" : "SignUp" }} Form</h1>
+      <div class="form-group" style="margin-top: 8rem; margin-bottom: 2.5rem">
+        <label for="email">E-Mail</label>
+        <input
+          autocomplete="false"
+          type="email"
+          id="email"
+          class="form-control"
+          ngModel
+          name="email"
+          required
+          email
+        />
+      </div>
+      <div class="form-group" style="margin-bottom: 2rem">
+        <label for="password">Password</label>
+        <input
+          autocomplete="false"
+          type="password"
+          id="password"
+          class="form-control"
+          ngModel
+          name="password"
+          required
+          minlength="6"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? "Login" : "SignUp" }}
+        </button>
+        |
+        <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+          Switch to {{ isLoginMode ? "SignUp" : "Login" }}
+        </button>
+      </div>
+      <div class="alert alert-danger" *ngIf="error" style="margin-top: 6rem">
+        <p>{{ error }}</p>
+      </div>
+    </form>
+  </div>
+</div>
